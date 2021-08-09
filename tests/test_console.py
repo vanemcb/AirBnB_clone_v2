@@ -14,3 +14,10 @@ class TestConsole(unittest.TestCase):
             HBNBCommand().onecmd("create State name=\"vane\"")
         state_id = f.getvalue()
         self.assertTrue(len(state_id) >= 1)
+
+        with patch('sys.stdout', new=StringIO()) as f2:
+            HBNBCommand().onecmd("show State " + state_id)
+        string = f2.getvalue()
+        param = "'name': 'vane'"
+        self.assertTrue(param in string)
+
