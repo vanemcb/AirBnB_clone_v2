@@ -20,4 +20,3 @@ class TestConsole(unittest.TestCase):
         string = f2.getvalue()
         param = "'name': 'vane'"
         self.assertTrue(param in string)
-
