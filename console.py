@@ -131,17 +131,27 @@ class HBNBCommand(cmd.Cmd):
 
         for param in args:
             param = param.split('=')
+
             if len(param) > 1:
+
                 key = param[0]
                 value = param[1]
-                string = '{} {} {} {}'.format(
-                    args[0],
-                    str(new_instance.id),
-                    key,
-                    value
-                )
-                print(string)
-                self.do_update(string)
+
+                if value[0] == '"':
+                    value = value.replace('"', '')
+                    value = value.replace('_', ' ')
+                elif "." in value:
+                    try:
+                        value = float(value)
+                    except:
+                        pass
+                else:
+                    try:
+                        value = int(value)
+                    except:
+                        pass
+
+                new_instance.__dict__.update({key: value})
 
     def help_create(self):
         """ Help information for the create method """
