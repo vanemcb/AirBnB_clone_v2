@@ -60,14 +60,15 @@ class FileStorage:
     def delete(self, obj=None):
         # If obj=None try block code won't execute
 
-        try:
+        if obj is not None:
             # parse the obj key as will be stored in __objects
             key = obj.to_dict()['__class__'] + '.' + obj.id
+            print(key)
 
             # delete an specify object with the key "key" from __objects
             FileStorage.__objects.pop(key)
 
             # Save changes in a json file
             self.save()
-        except:
+        else:
             pass
