@@ -10,6 +10,11 @@ class FileStorage:
 
     def all(self, cls=None):
         """Returns a dictionary of models currently in storage"""
+        print("\n-----\n", str(cls), "\n-----\n")
+        for key, value in FileStorage.__objects.items():
+            print("#######")
+            print(value.__class__)
+            print("#######")
         return FileStorage.__objects
 
     def new(self, obj):
