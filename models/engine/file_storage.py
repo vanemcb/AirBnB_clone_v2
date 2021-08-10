@@ -61,12 +61,10 @@ class FileStorage:
         if obj is not None:
             # parse the obj key as will be stored in __objects
             key = obj.to_dict()['__class__'] + '.' + obj.id
-            print(key)
 
-            # delete an specify object with the key "key" from __objects
-            FileStorage.__objects.pop(key)
+            if key in FileStorage.__objects:
+                # delete an specify object with the key "key" from __objects
+                del(FileStorage.__objects[key])
 
-            # Save changes in a json file
-            # self.save()
         else:
             pass
