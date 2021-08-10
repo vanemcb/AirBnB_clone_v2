@@ -56,15 +56,13 @@ class FileStorage:
             pass
 
     def delete(self, obj=None):
-        # If obj=None try block code won't execute
+        """ If obj = None try block code won't execute """
 
         if obj is not None:
-            # parse the obj key as will be stored in __objects
+            """ parse the obj key as will be stored in __objects """
             key = obj.to_dict()['__class__'] + '.' + obj.id
 
             if key in FileStorage.__objects:
-                # delete an specify object with the key "key" from __objects
+                """ delete an specify object with the key "key"
+                from __objects """
                 del(FileStorage.__objects[key])
-
-        else:
-            pass
