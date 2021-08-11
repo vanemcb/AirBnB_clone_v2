@@ -22,9 +22,6 @@ HBNB_MYSQL_PWD = os.getenv("HBNB_MYSQL_PWD")
 HBNB_MYSQL_HOST = os.getenv("HBNB_MYSQL_HOST")
 HBNB_MYSQL_DB = os.getenv("HBNB_MYSQL_DB")
 
-# classes = [user.User]
-# print(classes[0].__name__)
-
 
 class DBStorage:
     """
