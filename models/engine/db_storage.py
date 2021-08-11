@@ -9,13 +9,13 @@ from sqlalchemy.orm import Session, query, scoped_session
 from sqlalchemy.orm.session import sessionmaker
 
 
-os.environ.update({
-    "HBNB_ENV": "dev",
-    "HBNB_MYSQL_USER": "hbnb_dev",
-    "HBNB_MYSQL_PWD": "hbnb_dev_pwd",
-    "HBNB_MYSQL_HOST": "localhost",
-    "HBNB_MYSQL_DB": "hbnb_dev_db"
-})
+# os.environ.update({
+#     "HBNB_ENV": "dev",
+#     "HBNB_MYSQL_USER": "hbnb_dev",
+#     "HBNB_MYSQL_PWD": "hbnb_dev_pwd",
+#     "HBNB_MYSQL_HOST": "localhost",
+#     "HBNB_MYSQL_DB": "hbnb_dev_db"
+# })
 
 HBNB_MYSQL_USER = os.getenv("HBNB_MYSQL_USER")
 HBNB_MYSQL_PWD = os.getenv("HBNB_MYSQL_PWD")
@@ -68,13 +68,11 @@ class DBStorage:
                 query_dict.update(
                     {obj.__class__.__name__ + "." + obj.id: obj})
 
-        self.__session.close()
         return query_dict
 
     def new(self, obj):
         """Method that adds the object to the current database session"""
         self.__session.add(obj)
-        self.__session.close()
 
     def save(self):
         """ Method that commits all changes of the current database session """
