@@ -10,11 +10,12 @@ class FileStorage:
 
     def all(self, cls=None):
         """Returns a dictionary of models currently in storage"""
-        print("\n-----\n", str(cls), "\n-----\n")
-        for key, value in FileStorage.__objects.items():
-            print("#######")
-            print(value.__class__)
-            print("#######")
+        if cls is not None:
+            new_dict = {}
+            for key, value in FileStorage.__objects.items():
+                if str(cls) == str(value.__class__):
+                    new_dict.update({key: value})
+            return new_dict
         return FileStorage.__objects
 
     def new(self, obj):
@@ -55,15 +56,13 @@ class FileStorage:
             pass
 
     def delete(self, obj=None):
-        # If obj=None try block code won't execute
-        try:
-            # parse the obj key as will be stored in __objects
+        """ If obj = None try block code won't execute """
+
+        if obj is not None:
+            """ parse the obj key as will be stored in __objects """
             key = obj.to_dict()['__class__'] + '.' + obj.id
 
-            # delete an specify object with the key "key" from __objects
-            FileStorage.__objects.pop(key)
-
-            # Save changes in a json file
-            self.save()
-        except:
-            pass
+            if key in FileStorage.__objects:
+                """ delete an specify object with the key "key"
+                from __objects """
+                del(FileStorage.__objects[key])
