@@ -2,16 +2,17 @@
 # Script that sets up your web servers for the deployment of web_static
 
 # Install Nginx if it not already installed
-
-apt-get -y update
-apt-get -y upgrade
-apt-get -y install nginx
-service nginx start
+if ! dpkg -s nginx  > /dev/null
+then
+	apt-get -y update
+	apt-get -y upgrade
+	apt-get -y install nginx
+fi
 
 echo "Holberton School" > /var/www/html/index.nginx-debian.html
-sed -i '/server_name _;/ a \\trewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default
+sed -i '/listen 80 default_server;/ a \\trewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default
 echo "Ceci n'est pas une page" > /usr/share/nginx/html/custom_404.html
-sed -i '/server_name _;/ a \\n\terror_page 404 /custom_404.html;\n\tlocation = /custom_404.html {\n\t\troot /usr/share/nginx/html;\n\t\tinternal;\n\t\t}' /etc/nginx/sites-available/default
+sed -i '/listen 80 default_server;/ a \\n\terror_page 404 /custom_404.html;\n\tlocation = /custom_404.html {\n\t\troot /usr/share/nginx/html;\n\t\tinternal;\n\t\t}' /etc/nginx/sites-available/default
 host=$(hostname)
 sed -i "/http {/ a \\\tadd_header X-Served-By $host;" /etc/nginx/nginx.conf
 
@@ -29,6 +30,6 @@ ln -sf /data/web_static/releases/test/ /data/web_static/current
 chown -R ubuntu:ubuntu /data/
 
 # Update the Nginx configuration to serve the content of /data/web_static/current/ to hbnb_static
-sed -i '/server_name _;/ a \\n\tlocation /hbnb_static {\n\t\talias /data/web_static/current;\n\t\}' /etc/nginx/sites-available/default
+sed -i '/listen 80 default_server;/ a \\n\tlocation /hbnb_static {\n\t\talias /data/web_static/current;\n\t\}' /etc/nginx/sites-available/default
 
 service nginx restart
