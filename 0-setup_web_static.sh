@@ -31,6 +31,6 @@ ln -sf /data/web_static/releases/test/ /data/web_static/current
 chown -R ubuntu:ubuntu /data/
 
 # Update the Nginx configuration to serve the content of /data/web_static/current/ to hbnb_static
-sed -i '/server_name _;/ a \\n\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/;\n\t\}' /etc/nginx/sites-available/default
+sed -i '/server_name _;/ a \\n\tlocation /hbnb_static {\n\t\talias /data/web_static/current;\n\t\}' /etc/nginx/sites-available/default
 
 service nginx restart
