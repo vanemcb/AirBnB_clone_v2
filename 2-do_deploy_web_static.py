@@ -7,6 +7,9 @@ from datetime import datetime
 import os
 
 
+env.hosts = ['34.73.202.194', '54.82.109.39']
+
+
 def do_pack():
     """ Function that generates a .tgz archive """
     date = datetime.now().strftime('%Y%m%d%H%M%S')
@@ -22,7 +25,6 @@ def do_pack():
 def do_deploy(archive_path):
     """ Function that distributes an archive to your web servers """
     try:
-        env.hosts = ['34.73.202.194', '54.82.109.39']
         put(archive_path, '/tmp/')
         archive_name = archive_path.split('/')[-1]
         archive_name2 = archive_name.split('.')[0]
@@ -31,7 +33,8 @@ def do_deploy(archive_path):
             archive_name, archive_name2))
         run('rm /tmp/{}'.format(archive_name))
         run(
-            'mv /data/web_static/releases/{}/web_static/* /data/web_static/releases/{}/'.format(
+            'mv /data/web_static/releases/{}/web_static/* \
+                /data/web_static/releases/{}/'.format(
                 archive_name2, archive_name2))
         run('rm -rf /data/web_static/releases/{}/web_static'.format(
             archive_name2))
