@@ -1,10 +1,10 @@
 #!/usr/bin/python3
 """ Fabric script that distributes an archive to your web servers, using the
-function do_deploy """
+function deploy """
 
 from fabric.api import env, put, run, local
 from datetime import datetime
-import os
+import os.path
 
 
 env.hosts = ['34.73.202.194', '54.82.109.39']
@@ -17,14 +17,14 @@ def do_pack():
     try:
         local('mkdir -p versions')
         local('tar -cvzf versions/web_static_{}.tgz web_static'.format(date))
-        return 'versions/{}.tgz'.format(date)
+        return 'versions/web_static_{}.tgz'.format(date)
     except:
         return None
 
 
 def do_deploy(archive_path):
     """ Function that distributes an archive to your web servers """
-    if os.path.exists(archive_path) is False:
+    if os.path.isfile(archive_path) is False:
         return(False)
     try:
         put(archive_path, '/tmp/')
