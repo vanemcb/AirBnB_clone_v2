@@ -26,11 +26,11 @@ def display_c(text):
 
 
 @app.route('/python', strict_slashes=False)
-@app.route('/python/<string:text>', strict_slashes=False)
+@app.route('/python/<text>', strict_slashes=False)
 def display_python(text='is cool'):
     """ Function that displays “Python ”, followed by the value
     of the text variable  """
-    text.replace("_", " ")
+    text = text.replace("_", " ")
     return 'Python {}'.format(text)
 
 
