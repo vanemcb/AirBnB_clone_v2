@@ -31,4 +31,3 @@ class State(BaseModel, Base):
                 list_cities.append(value)
 
         return list_cities
-        # name = ""
