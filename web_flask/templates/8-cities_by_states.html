@@ -10,12 +10,13 @@
 
 	<UL>
 		{% for value in dict.values()|sort(attribute="name") %}
-		<LI>{{ value.id}}: <B>{{ value.name }}</B></LI>
-			{% for item in value.cities|sort(attribute="name") %}
+		<LI>{{ value.id }}: <B>{{ value.name }}</B>
 			<UL>
+			{% for item in value.cities|sort(attribute="name") %}
 				<LI>{{ item.id }}: <B>{{ item.name }}</B></LI>
-			</UL>
 			{% endfor %}
+			</UL>
+		</LI>
 		{% endfor %}
 	</UL>
 
